@@ -15,3 +15,9 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+######################################################################
+############################Settings##################################
+######################################################################
+#Library has to set -dontshrink
+-dontshrink

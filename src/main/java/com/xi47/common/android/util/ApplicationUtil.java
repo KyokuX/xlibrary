@@ -46,6 +46,14 @@ public final class ApplicationUtil {
         return info != null;
     }
 
+    public String getPackageName() {
+        PackageInfo info = getPackageInfo();
+        if (info == null) {
+            return null;
+        }
+        return info.packageName;
+    }
+
     private PackageInfo getPackageInfo() {
         if (!mIsInited) {
             return null;

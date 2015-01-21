@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author HanXu
  */
-public class PreferencesUtil {
+public final class PreferencesUtil {
 
     private Map<String, SharedPreferences> mPreferences = null;
 
@@ -35,6 +35,14 @@ public class PreferencesUtil {
             return false;
         }
         return preferences.edit().putBoolean(key, value).commit();
+    }
+
+    public boolean put(String name, String key, int value) {
+        SharedPreferences preferences = mPreferences.get(name);
+        if (preferences == null) {
+            return false;
+        }
+        return preferences.edit().putInt(key, value).commit();
     }
 
     public boolean get(String name, String key, boolean defaultValue) {

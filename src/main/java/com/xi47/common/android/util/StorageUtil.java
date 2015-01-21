@@ -31,7 +31,6 @@ public final class StorageUtil {
                     return path;
                 }
             }
-            return context.getFilesDir().getAbsolutePath();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author HanXu
@@ -143,5 +145,18 @@ public final class StringUtil {
         }
         builder.append(minute);
         return builder.toString();
+    }
+
+    public static String getDomainFromUrl(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return null;
+        }
+        int firstIndex = url.indexOf("://");
+        if (firstIndex < 0) {
+            return null;
+        }
+        int firstSeparatorIndex = url.indexOf('/', firstIndex);
+        String domain = url.substring(firstIndex + 3, firstSeparatorIndex > 0 ? firstSeparatorIndex : url.length());
+        return domain;
     }
 }
