@@ -155,8 +155,8 @@ public final class StringUtil {
         if (firstIndex < 0) {
             return null;
         }
-        int firstSeparatorIndex = url.indexOf('/', firstIndex);
-        String domain = url.substring(firstIndex + 3, firstSeparatorIndex > 0 ? firstSeparatorIndex : url.length());
+        int firstSeparatorIndex = url.indexOf('/', firstIndex + 3);
+        String domain = url.substring(firstIndex + 3, firstSeparatorIndex > 0 ? firstSeparatorIndex : url.length() - 1);
         return domain;
     }
 }
