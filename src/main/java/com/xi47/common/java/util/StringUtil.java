@@ -159,4 +159,15 @@ public final class StringUtil {
         String domain = url.substring(firstIndex + 3, firstSeparatorIndex > 0 ? firstSeparatorIndex : url.length() - 1);
         return domain;
     }
+
+    public static String getBaseUrl(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return url;
+        }
+        int paramStartIndex = url.indexOf("?");
+        if (paramStartIndex < 0) {
+            return url;
+        }
+        return url.substring(0, paramStartIndex);
+    }
 }
