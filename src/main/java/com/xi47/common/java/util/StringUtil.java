@@ -156,7 +156,12 @@ public final class StringUtil {
             return null;
         }
         int firstSeparatorIndex = url.indexOf('/', firstIndex + 3);
-        String domain = url.substring(firstIndex + 3, firstSeparatorIndex > 0 ? firstSeparatorIndex : url.length() - 1);
+        int start = firstIndex + 3;
+        int end = firstSeparatorIndex > 0 ? firstSeparatorIndex : url.length() - 1;
+        if (start < 0 || start > end || end > url.length()) {
+            return null;
+        }
+        String domain = url.substring(start, end);
         return domain;
     }
 
