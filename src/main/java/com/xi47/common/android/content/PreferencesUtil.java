@@ -14,10 +14,11 @@ public final class PreferencesUtil {
     private Map<String, SharedPreferences> mPreferences = null;
 
     private PreferencesUtil() {
+        //noinspection Convert2Diamond
         mPreferences = new HashMap<String, SharedPreferences>();
     }
 
-    public static final PreferencesUtil getInstance() {
+    public static PreferencesUtil getInstance() {
         return InstanceHolder.mInstance;
     }
 
@@ -31,18 +32,12 @@ public final class PreferencesUtil {
 
     public boolean put(String name, String key, boolean value) {
         SharedPreferences preferences = mPreferences.get(name);
-        if (preferences == null) {
-            return false;
-        }
-        return preferences.edit().putBoolean(key, value).commit();
+        return preferences != null && preferences.edit().putBoolean(key, value).commit();
     }
 
     public boolean put(String name, String key, int value) {
         SharedPreferences preferences = mPreferences.get(name);
-        if (preferences == null) {
-            return false;
-        }
-        return preferences.edit().putInt(key, value).commit();
+        return preferences != null && preferences.edit().putInt(key, value).commit();
     }
 
     public boolean get(String name, String key, boolean defaultValue) {

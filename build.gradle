@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 10
+        targetSdkVersion 21
         versionCode 5
-        versionName "1.0.4"
+        versionName "1.0.5"
     }
     buildTypes {
         release {
@@ -19,6 +19,7 @@ android {
                 variant.outputs.each { output ->
                     def date = new Date()
                     def formattedDate = date.format('yyMMddHH')
+                    //noinspection GroovyAssignabilityCheck
                     output.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace("-release", "_v" + defaultConfig.versionName + "_build" + defaultConfig.versionCode + "_" + formattedDate + "_release"))
                 }
             }

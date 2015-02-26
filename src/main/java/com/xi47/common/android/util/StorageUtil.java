@@ -1,6 +1,7 @@
 package com.xi47.common.android.util;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
 
@@ -9,19 +10,24 @@ import java.lang.reflect.Method;
 /**
  * @author HanXu
  */
+@SuppressWarnings("WeakerAccess")
 public final class StorageUtil {
 
-    public static final long getAvailableSize(String path) {
+    public static long getAvailableSize(String path) {
         try {
             StatFs statFs = new StatFs(path);
-            return ((long) statFs.getAvailableBlocks() * (long) statFs.getBlockSize());
+            if (Build.VERSION.SDK_INT > 17) {
+                return statFs.getAvailableBlocksLong() * statFs.getBlockSizeLong();
+            } else {
+                return ((long) statFs.getAvailableBlocks() * (long) statFs.getBlockSize());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return -1;
     }
 
-    public static final String getAvailableStoragePath(Context context) {
+    public static String getAvailableStoragePath(Context context) {
         StorageManager manager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
         try {
             Method getVolumePathsMethod = manager.getClass().getMethod("getVolumePaths");

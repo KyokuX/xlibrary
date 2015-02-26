@@ -13,19 +13,21 @@ import android.util.DisplayMetrics;
  */
 public final class DeviceUtil {
 
+    @SuppressWarnings("WeakerAccess")
     public static final int NETWORK_NOT_CONNECTED = 0x0;
-    public static final int NETWORK_UNKNOW = 0x1;
+    @SuppressWarnings("WeakerAccess")
+    public static final int NETWORK_UNKNOWN = 0x1;
 
-    private boolean mIsInited = false;
+    private boolean mIsInitialled = false;
 
     private Context mContext = null;
-    private DisplayMetrics mDisplayMetrics = null;
+    private final DisplayMetrics mDisplayMetrics = null;
 
     private DeviceUtil() {
         // do nothing.
     }
 
-    public static final DeviceUtil getInstance() {
+    public static DeviceUtil getInstance() {
         return InstanceHolder.mInstance;
     }
 
@@ -61,7 +63,7 @@ public final class DeviceUtil {
             return;
         }
         mContext = context;
-        mIsInited = true;
+        mIsInitialled = true;
     }
 
     public final int getNetworkState() {
@@ -74,11 +76,11 @@ public final class DeviceUtil {
             return NETWORK_NOT_CONNECTED;
         }
         // TODO add other case.
-        return NETWORK_UNKNOW;
+        return NETWORK_UNKNOWN;
     }
 
     public String getMacAddress() {
-        if (!mIsInited) {
+        if (!mIsInitialled) {
             return null;
         }
         try {
@@ -98,12 +100,12 @@ public final class DeviceUtil {
         return null;
     }
 
-    public boolean isInited() {
+    public boolean isInitialled() {
         return mContext != null;
     }
 
     private DisplayMetrics getDisplayMetrics() {
-        if (!mIsInited) {
+        if (!mIsInitialled) {
             return null;
         }
         if (mDisplayMetrics != null) {

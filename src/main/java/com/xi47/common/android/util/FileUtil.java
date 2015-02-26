@@ -10,9 +10,10 @@ import java.io.File;
 /**
  * @author HanXu
  */
+@SuppressWarnings("WeakerAccess")
 public final class FileUtil {
 
-    public static final int FILE_TYPE_UNKONW = 0;
+    public static final int FILE_TYPE_UNKNOWN = 0;
     public static final int FILE_TYPE_APK = 1;
 
     public static void openFile(String path, Context context) {
@@ -27,7 +28,7 @@ public final class FileUtil {
         Uri uri = Uri.fromFile(file);
         int fileType = getTypeByName(path);
         switch (fileType) {
-            case FILE_TYPE_UNKONW:
+            case FILE_TYPE_UNKNOWN:
                 intent.setDataAndType(uri, "*/*");
                 break;
 
@@ -52,11 +53,11 @@ public final class FileUtil {
 
     public static int getTypeByName(String name) {
         if (TextUtils.isEmpty(name)) {
-            return FILE_TYPE_UNKONW;
+            return FILE_TYPE_UNKNOWN;
         } else if (name.toLowerCase().contains(".apk")) {
             return FILE_TYPE_APK;
         } else {
-            return FILE_TYPE_UNKONW;
+            return FILE_TYPE_UNKNOWN;
         }
     }
 

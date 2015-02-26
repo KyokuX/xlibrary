@@ -5,6 +5,7 @@ import android.view.View.OnClickListener;
 /**
  * @author HanXu
  */
+@SuppressWarnings("WeakerAccess")
 public class TVMenuItem {
 
     private int mTextId = -1;

@@ -14,18 +14,17 @@ import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author HanXu
  */
+@SuppressWarnings("WeakerAccess")
 public final class StringUtil {
 
     public static char SEPARATOR_URL_PARAM_APPEND = '&';
     public static char SEPARATOR_URL_PARAM_EQUALS = '=';
 
-    public static char[] LETTERS_LOWERCASE = {
+    public static final char[] LETTERS_LOWERCASE = {
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
             'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     };
@@ -97,9 +96,9 @@ public final class StringUtil {
                 return null;
             }
             StringBuilder hexBuilder = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                hexBuilder.append(Character.forDigit((bytes[i] & 0XF0) >> 4, 16));
-                hexBuilder.append(Character.forDigit((bytes[i] & 0X0F), 16));
+            for (byte b : bytes) {
+                hexBuilder.append(Character.forDigit((b & 0XF0) >> 4, 16));
+                hexBuilder.append(Character.forDigit((b & 0X0F), 16));
             }
             return hexBuilder.toString();
         } catch (Exception e) {
@@ -109,7 +108,7 @@ public final class StringUtil {
     }
 
     public static String randomPackageName() {
-        StringBuilder packageName = new StringBuilder();
+        @SuppressWarnings("StringBufferReplaceableByString") StringBuilder packageName = new StringBuilder();
         packageName.append("com.");
         packageName.append(getRandomLetter(5));
         packageName.append('.');
@@ -121,7 +120,7 @@ public final class StringUtil {
         return getRandomString(length, LETTERS_LOWERCASE);
     }
 
-    public static String getRandomString(int length, char[] source) {
+    public static String getRandomString(int length, @SuppressWarnings("SameParameterValue") char[] source) {
         if (length < 1 || source == null || source.length == 0) {
             return null;
         }
@@ -161,8 +160,7 @@ public final class StringUtil {
         if (start < 0 || start > end || end > url.length()) {
             return null;
         }
-        String domain = url.substring(start, end);
-        return domain;
+        return url.substring(start, end);
     }
 
     public static String getBaseUrl(String url) {

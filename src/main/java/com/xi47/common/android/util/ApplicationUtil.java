@@ -10,7 +10,7 @@ import android.text.TextUtils;
  */
 public final class ApplicationUtil {
 
-    private boolean mIsInited = false;
+    private boolean mIsInitialled = false;
 
     private Context mContext = null;
     private PackageInfo mPackageInfo = null;
@@ -35,7 +35,7 @@ public final class ApplicationUtil {
 
     public void init(Context context) {
         mContext = context;
-        mIsInited = true;
+        mIsInitialled = true;
     }
 
     public boolean isPackageInstalled(String packageName) {
@@ -55,7 +55,7 @@ public final class ApplicationUtil {
     }
 
     private PackageInfo getPackageInfo() {
-        if (!mIsInited) {
+        if (!mIsInitialled) {
             return null;
         }
         if (mPackageInfo != null) {
@@ -66,13 +66,12 @@ public final class ApplicationUtil {
     }
 
     private PackageInfo getPackageInfo(String packageName) {
-        if (!mIsInited) {
+        if (!mIsInitialled) {
             return null;
         }
         try {
             PackageManager manager = mContext.getPackageManager();
-            PackageInfo info = manager.getPackageInfo(packageName, 0);
-            return info;
+            return manager.getPackageInfo(packageName, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }

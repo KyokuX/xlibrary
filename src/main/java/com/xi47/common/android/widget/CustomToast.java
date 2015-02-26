@@ -27,17 +27,19 @@ public class CustomToast {
     }
 
     public void showLongToast(int id) {
-        show(id, Toast.LENGTH_LONG, false);
+        showLongToast(mContext.getString(id));
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void showLongToast(String text) {
         show(text, Toast.LENGTH_LONG, false);
     }
 
     public void showShortToast(int id) {
-        show(id, Toast.LENGTH_SHORT, false);
+        showShortToast(mContext.getString(id));
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void showShortToast(String text) {
         show(text, Toast.LENGTH_SHORT, false);
     }
@@ -45,7 +47,7 @@ public class CustomToast {
     /**
      * Must call before all other methods.
      *
-     * @param context
+     * @param context Application context.
      */
     public void init(Context context) {
         if (context == null) {
@@ -70,6 +72,7 @@ public class CustomToast {
         showOneTimeToast(mContext.getString(id));
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void showOneTimeToast(String text) {
         if (mHistories != null && mHistories.contains(text)) {
             return;
@@ -77,17 +80,14 @@ public class CustomToast {
         show(text, Toast.LENGTH_LONG, true);
     }
 
-    public boolean isInited() {
+    public boolean isInitialled() {
         return mContext != null;
-    }
-
-    private void show(int id, int length, boolean recordHistory) {
-        show(mContext.getString(id), length, recordHistory);
     }
 
     private void show(String text, int length, boolean recordHistory) {
         if (recordHistory) {
             if (mHistories == null) {
+                //noinspection Convert2Diamond
                 mHistories = new ArrayList<String>();
             }
             mHistories.add(text);

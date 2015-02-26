@@ -10,12 +10,13 @@ import android.view.Window;
 /**
  * @author HanXu
  */
-public class BitmapUtil {
+@SuppressWarnings("WeakerAccess")
+public final class BitmapUtil {
 
     /**
      * get a screen shot with size : width X height.
      */
-    public static final Bitmap getScreenShot(Activity activity, int width, int height) {
+    public static Bitmap getScreenShot(Activity activity, int width, int height) {
         if (activity == null || width < 1 || height < 1) {
             return null;
         }
@@ -44,7 +45,7 @@ public class BitmapUtil {
     /**
      * get a screen shot with default screen size.
      */
-    public static final Bitmap getScreenShot(Activity activity) {
+    public static Bitmap getScreenShot(Activity activity) {
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
@@ -53,7 +54,7 @@ public class BitmapUtil {
     }
 
     // TODO optimize this method.
-    public static final Bitmap blur(Bitmap source, int radius) {
+    public static Bitmap blur(Bitmap source, int radius) {
         if (source == null) {
             return null;
         }
@@ -79,7 +80,7 @@ public class BitmapUtil {
         int vmin[] = new int[Math.max(w, h)];
 
         int divsum = (div + 1) >> 1;
-        divsum *= divsum;
+        divsum = divsum * divsum;
         int dv[] = new int[256 * divsum];
         for (i = 0; i < 256 * divsum; i++) {
             dv[i] = (i / divsum);
