@@ -38,7 +38,6 @@ public final class BitmapUtil {
         Bitmap drawingCache = Bitmap.createBitmap(screenShot, 0, 0, screenShot.getWidth(), screenShot.getHeight(), matrix, true);
         decorView.destroyDrawingCache();
         screenShot.recycle();
-        screenShot = null;
         return drawingCache;
     }
 

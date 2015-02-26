@@ -6,6 +6,7 @@ import android.util.Base64;
 import org.apache.http.protocol.HTTP;
 
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -21,8 +22,8 @@ import java.util.Random;
 @SuppressWarnings("WeakerAccess")
 public final class StringUtil {
 
-    public static char SEPARATOR_URL_PARAM_APPEND = '&';
-    public static char SEPARATOR_URL_PARAM_EQUALS = '=';
+    public static final char SEPARATOR_URL_PARAM_APPEND = '&';
+    public static final char SEPARATOR_URL_PARAM_EQUALS = '=';
 
     public static final char[] LETTERS_LOWERCASE = {
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
@@ -85,13 +86,13 @@ public final class StringUtil {
     }
 
     public static String base64(String baseString) {
-        return Base64.encodeToString(baseString.getBytes(), Base64.NO_WRAP);
+        return Base64.encodeToString(baseString.getBytes(Charset.defaultCharset()), Base64.NO_WRAP);
     }
 
     public static String MD5(String baseString) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            byte[] bytes = messageDigest.digest(baseString.getBytes());
+            byte[] bytes = messageDigest.digest(baseString.getBytes(Charset.defaultCharset()));
             if (bytes == null) {
                 return null;
             }
@@ -167,7 +168,7 @@ public final class StringUtil {
         if (TextUtils.isEmpty(url)) {
             return url;
         }
-        int paramStartIndex = url.indexOf("?");
+        int paramStartIndex = url.indexOf('?');
         if (paramStartIndex < 0) {
             return url;
         }

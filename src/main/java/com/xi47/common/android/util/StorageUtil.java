@@ -37,6 +37,8 @@ public final class StorageUtil {
                     return path;
                 }
             }
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             e.printStackTrace();
         }

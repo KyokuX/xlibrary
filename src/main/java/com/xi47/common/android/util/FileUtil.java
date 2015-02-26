@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import java.io.File;
+import java.util.Locale;
 
 /**
  * @author HanXu
@@ -54,7 +55,7 @@ public final class FileUtil {
     public static int getTypeByName(String name) {
         if (TextUtils.isEmpty(name)) {
             return FILE_TYPE_UNKNOWN;
-        } else if (name.toLowerCase().contains(".apk")) {
+        } else if (name.toLowerCase(Locale.getDefault()).contains(".apk")) {
             return FILE_TYPE_APK;
         } else {
             return FILE_TYPE_UNKNOWN;

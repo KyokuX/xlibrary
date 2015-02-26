@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 /**
  * @author HanXu
@@ -24,6 +25,9 @@ public final class AssetUtil {
     }
 
     public String getText(String fileName) {
+        return getText(fileName, Charset.defaultCharset());
+    }
+    public String getText(String fileName, Charset charset) {
         if (mContext == null) {
             throw (new NullPointerException("Must call init() before call any other methods."));
         }
@@ -32,8 +36,7 @@ public final class AssetUtil {
         try {
             StringBuilder builder = new StringBuilder();
             InputStream stream = manager.open(fileName);
-            reader = new BufferedReader(new InputStreamReader(stream));
-
+            reader = new BufferedReader(new InputStreamReader(stream, charset));
             String line = null;
             while ((line = reader.readLine()) != null) {
                 builder.append(line);

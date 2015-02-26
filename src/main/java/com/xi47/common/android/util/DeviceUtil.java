@@ -21,7 +21,6 @@ public final class DeviceUtil {
     private boolean mIsInitialled = false;
 
     private Context mContext = null;
-    private final DisplayMetrics mDisplayMetrics = null;
 
     private DeviceUtil() {
         // do nothing.
@@ -107,9 +106,6 @@ public final class DeviceUtil {
     private DisplayMetrics getDisplayMetrics() {
         if (!mIsInitialled) {
             return null;
-        }
-        if (mDisplayMetrics != null) {
-            return mDisplayMetrics;
         }
         return mContext.getResources().getDisplayMetrics();
     }
