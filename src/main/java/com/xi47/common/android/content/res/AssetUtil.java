@@ -27,6 +27,7 @@ public final class AssetUtil {
     public String getText(String fileName) {
         return getText(fileName, Charset.defaultCharset());
     }
+
     public String getText(String fileName, Charset charset) {
         if (mContext == null) {
             throw (new NullPointerException("Must call init() before call any other methods."));

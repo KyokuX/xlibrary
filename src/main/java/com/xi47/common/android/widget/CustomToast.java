@@ -27,6 +27,9 @@ public class CustomToast {
     }
 
     public void showLongToast(int id) {
+        if (mContext == null) {
+            return;
+        }
         showLongToast(mContext.getString(id));
     }
 
@@ -36,6 +39,9 @@ public class CustomToast {
     }
 
     public void showShortToast(int id) {
+        if (mContext == null) {
+            return;
+        }
         showShortToast(mContext.getString(id));
     }
 
@@ -69,7 +75,9 @@ public class CustomToast {
     }
 
     public void showOneTimeToast(int id) {
-        showOneTimeToast(mContext.getString(id));
+        if (mContext != null) {
+            showOneTimeToast(mContext.getString(id));
+        }
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -78,10 +86,6 @@ public class CustomToast {
             return;
         }
         show(text, Toast.LENGTH_LONG, true);
-    }
-
-    public boolean isInitialled() {
-        return mContext != null;
     }
 
     private void show(String text, int length, boolean recordHistory) {

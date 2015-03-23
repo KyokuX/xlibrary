@@ -2,10 +2,16 @@ package com.xi47.common.android.graphics;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Point;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
+
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * @author HanXu
@@ -52,6 +58,30 @@ public final class BitmapUtil {
         return getScreenShot(activity, width, height);
     }
 
+    /**
+     * get image size by path
+     */
+    public static Point getImageSize(String path) {
+        if (TextUtils.isEmpty(path)) {
+            return null;
+        }
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        if (path.startsWith("http")) {
+            try {
+                BitmapFactory.decodeStream(new URL(path).openStream(), null, options);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            BitmapFactory.decodeFile(path, options);
+        }
+        return new Point(options.outWidth, options.outHeight);
+    }
+
+    /**
+     * @deprecated
+     */
     // TODO optimize this method.
     public static Bitmap blur(Bitmap source, int radius) {
         if (source == null) {
