@@ -40,6 +40,11 @@ public final class PreferencesUtil {
         return preferences != null && preferences.edit().putInt(key, value).commit();
     }
 
+    public boolean put(String name, String key, String value) {
+        SharedPreferences preferences = mPreferences.get(name);
+        return preferences != null && preferences.edit().putString(key, value).commit();
+    }
+
     public boolean get(String name, String key, boolean defaultValue) {
         SharedPreferences preferences = mPreferences.get(name);
         if (preferences == null) {
@@ -54,6 +59,14 @@ public final class PreferencesUtil {
             return defaultValue;
         }
         return preferences.getInt(key, defaultValue);
+    }
+
+    public String get(String name, String key, String defaultValue) {
+        SharedPreferences preferences = mPreferences.get(name);
+        if (preferences == null) {
+            return defaultValue;
+        }
+        return preferences.getString(key, defaultValue);
     }
 
     private static class InstanceHolder {
