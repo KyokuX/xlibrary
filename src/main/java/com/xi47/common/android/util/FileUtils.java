@@ -1,23 +1,28 @@
 package com.xi47.common.android.util;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Locale;
 
 /**
  * @author HanXu
  */
 @SuppressWarnings("WeakerAccess")
-public final class FileUtil {
+public final class FileUtils {
 
     public static final int FILE_TYPE_UNKNOWN = 0;
     public static final int FILE_TYPE_APK = 1;
 
-    public static void openFile(String path, Context context) {
+    public static void openFile(String path, Context context) throws ActivityNotFoundException {
         if (TextUtils.isEmpty(path)) {
             return;
         }
@@ -44,12 +49,8 @@ public final class FileUtil {
             default:
                 break;
         }
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        try {
-            context.startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     public static int getTypeByName(String name) {
@@ -79,5 +80,29 @@ public final class FileUtil {
         }
         File file = new File(path);
         return file.length();
+    }
+
+    public static boolean saveFile(String path, String content) throws IOException {
+        if (TextUtils.isEmpty(path) || TextUtils.isEmpty(content)) {
+            return false;
+        }
+        File file = new File(path);
+        if (!file.exists()) {
+            File parent = file.getParentFile();
+            if (parent != null) {
+                parent.mkdirs();
+            }
+            file.createNewFile();
+        }
+        OutputStream outputStream = new FileOutputStream(file);
+        int bytesRead = 0;
+        byte[] buffers = new byte[8192];
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(content.getBytes());
+        while ((bytesRead = byteArrayInputStream.read(buffers, 0, 8192)) != -1) {
+            outputStream.write(buffers, 0, bytesRead);
+        }
+        outputStream.close();
+        byteArrayInputStream.close();
+        return true;
     }
 }

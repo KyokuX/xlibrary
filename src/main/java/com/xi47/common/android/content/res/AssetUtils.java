@@ -12,15 +12,15 @@ import java.nio.charset.Charset;
 /**
  * @author HanXu
  */
-public final class AssetUtil {
+public final class AssetUtils {
 
     private Context mContext = null;
 
-    private AssetUtil() {
+    private AssetUtils() {
         // do nothing.
     }
 
-    public static AssetUtil getInstance() {
+    public static AssetUtils getInstance() {
         return InstanceHolder.mInstance;
     }
 
@@ -30,7 +30,7 @@ public final class AssetUtil {
 
     public String getText(String fileName, Charset charset) {
         if (mContext == null) {
-            throw (new NullPointerException("Must call init() before call any other methods."));
+            throw (new NullPointerException("Must call init() before any other methods."));
         }
         AssetManager manager = mContext.getAssets();
         BufferedReader reader = null;
@@ -64,6 +64,6 @@ public final class AssetUtil {
 
     private static class InstanceHolder {
 
-        private static final AssetUtil mInstance = new AssetUtil();
+        private static final AssetUtils mInstance = new AssetUtils();
     }
 }

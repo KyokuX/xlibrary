@@ -1,5 +1,6 @@
 package com.xi47.common.android.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ public class CustomToast {
 
     private List<String> mHistories = null;
 
-    private Context mContext = null;
+    private Activity mActivity = null;
     private TextView mTextView = null;
     private Toast mToast = null;
 
@@ -27,10 +28,10 @@ public class CustomToast {
     }
 
     public void showLongToast(int id) {
-        if (mContext == null) {
+        if (mActivity == null) {
             return;
         }
-        showLongToast(mContext.getString(id));
+        showLongToast(mActivity.getString(id));
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -39,10 +40,10 @@ public class CustomToast {
     }
 
     public void showShortToast(int id) {
-        if (mContext == null) {
+        if (mActivity == null) {
             return;
         }
-        showShortToast(mContext.getString(id));
+        showShortToast(mActivity.getString(id));
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -53,16 +54,16 @@ public class CustomToast {
     /**
      * Must call before all other methods.
      *
-     * @param context Application context.
+     * @param activity activity that hold the toast thread.
      */
-    public void init(Context context) {
-        if (context == null) {
+    public void init(Activity activity) {
+        if (activity == null) {
             return;
         }
-        mContext = context;
-        mTextView = new TextView(context);
+        mActivity = activity;
+        mTextView = new TextView(activity);
         mTextView.setBackgroundResource(android.R.drawable.toast_frame);
-        mToast = new Toast(context);
+        mToast = new Toast(activity);
         mToast.setView(mTextView);
     }
 
@@ -75,8 +76,8 @@ public class CustomToast {
     }
 
     public void showOneTimeToast(int id) {
-        if (mContext != null) {
-            showOneTimeToast(mContext.getString(id));
+        if (mActivity != null) {
+            showOneTimeToast(mActivity.getString(id));
         }
     }
 
@@ -88,7 +89,7 @@ public class CustomToast {
         show(text, Toast.LENGTH_LONG, true);
     }
 
-    private void show(String text, int length, boolean recordHistory) {
+    private void show(final String text, final int length, boolean recordHistory) {
         if (recordHistory) {
             if (mHistories == null) {
                 //noinspection Convert2Diamond
@@ -96,9 +97,14 @@ public class CustomToast {
             }
             mHistories.add(text);
         }
-        mTextView.setText(text);
-        mToast.setDuration(length);
-        mToast.show();
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mTextView.setText(text);
+                mToast.setDuration(length);
+                mToast.show();
+            }
+        });
     }
 
     private static class InstanceHolder {
