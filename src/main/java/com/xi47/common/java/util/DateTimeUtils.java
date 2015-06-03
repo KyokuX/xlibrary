@@ -25,18 +25,21 @@ public class DateTimeUtils {
         long restDuration = duration;
         if (formatedString.indexOf(TAG_HOUR) > -1) {
             long hour = restDuration / 1000 / 60 / 60;
-            formatedString.replaceFirst(TAG_HOUR, String.valueOf(hour));
+            formatedString = formatedString.replaceFirst(TAG_HOUR, String.valueOf(hour));
             restDuration -= hour * 1000 *60 * 60;
-        } else if (formatedString.indexOf(TAG_MINUTE) > -1) {
+        }
+        if (formatedString.indexOf(TAG_MINUTE) > -1) {
             long minute = restDuration / 1000 / 60;
-            formatedString.replaceFirst(TAG_MINUTE, String.valueOf(minute));
+            formatedString = formatedString.replaceFirst(TAG_MINUTE, String.valueOf(minute));
             restDuration -= minute * 1000 * 60;
-        } else if (formatedString.indexOf(TAG_SECOND) > -1) {
+        }
+        if (formatedString.indexOf(TAG_SECOND) > -1) {
             long second = restDuration / 1000;
-            formatedString.replaceFirst(TAG_SECOND, String.valueOf(second));
+            formatedString = formatedString.replaceFirst(TAG_SECOND, String.valueOf(second));
             restDuration -= second * 1000;
-        } else if (formatedString.indexOf(TAG_MILLISECOND) > -1) {
-            formatedString.replaceFirst(TAG_MILLISECOND, String.valueOf(restDuration));
+        }
+        if (formatedString.indexOf(TAG_MILLISECOND) > -1) {
+            formatedString = formatedString.replaceFirst(TAG_MILLISECOND, String.valueOf(restDuration));
         }
         return formatedString;
     }
